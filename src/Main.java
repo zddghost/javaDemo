@@ -1,13 +1,42 @@
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeMap;
 
 public class Main {
 
     public static void main(String[] args) {
-        mathdemo();
+        annotationDemo();
     }
 
+    private static void annotationDemo() {
+        try {
+            Class<?> user = Class.forName("User");
+            Object o = user.newInstance();
+            Field[] declaredFields = user.getDeclaredFields();
+            for (Field declaredField : declaredFields) {
+                SPI declaredAnnotation = declaredField.getDeclaredAnnotation(SPI.class);
+                String name = declaredAnnotation.name();
+                String value = declaredAnnotation.value();
+                System.err.println(name);
+                System.err.println(value);
+                declaredField.setAccessible(true);
+                String name1 = declaredField.getName();
+                System.err.println(name1);
+                declaredField.set(o, value);
+            }
+            Method toString = user.getDeclaredMethod("toString");
+            User zdd = (User) o;
+            System.out.println(zdd.toString());
+        } catch (Exception e) {
+            System.err.println("反射失败!");
+        }
+
+    }
+
+    //反射获取方法
     private static void mathdemo() {
         Class<?> mathDemo = null;
         try {
