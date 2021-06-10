@@ -1,3 +1,4 @@
+package annotation;
 
 public class User {
     @SPI(name = "名字", value = "zdd")

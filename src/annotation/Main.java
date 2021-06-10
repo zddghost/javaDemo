@@ -1,3 +1,5 @@
+package annotation;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -16,6 +18,7 @@ public class Main {
             Object o = user.newInstance();
             Field[] declaredFields = user.getDeclaredFields();
             for (Field declaredField : declaredFields) {
+                System.err.println(declaredField);
                 SPI declaredAnnotation = declaredField.getDeclaredAnnotation(SPI.class);
                 String name = declaredAnnotation.name();
                 String value = declaredAnnotation.value();
@@ -39,7 +42,7 @@ public class Main {
     private static void mathdemo() {
         Class<?> mathDemo = null;
         try {
-            mathDemo = Class.forName("MathDemo");
+            mathDemo = Class.forName("param.MathDemo");
             Method method = mathDemo.getDeclaredMethod("add", Object[].class);
             //强制反射
             method.setAccessible(true);
@@ -58,7 +61,7 @@ public class Main {
     private static void mathdemo1() {
         Class<?> mathDemo = null;
         try {
-            mathDemo = Class.forName("MathDemo");
+            mathDemo = Class.forName("param.MathDemo");
             Method method = mathDemo.getDeclaredMethod("add");
             //强制反射
             method.setAccessible(true);
